@@ -4,7 +4,7 @@ spring:
     username: postgres
     password: vishwa
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
     show-sql: true
     hibernate:
@@ -12,7 +12,7 @@ spring:
     properties:
       hibernate:
         globally_quoted_identifiers: true
-        dialect: org.hibernate.dialect.PostgerSQLInnoDBDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
   servlet:
     multipart:
