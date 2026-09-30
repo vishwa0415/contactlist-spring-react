@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static com.tutorial.contactlistapi.constant.Constant.PHOTO_DIRECTORY;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
@@ -37,6 +38,7 @@ public class ContactService {
         return contactRepo.save(contact);
     }
     public String uploadPhoto(String id, MultipartFile file){
+        log.info("saving photo for user id:{}"+id);
         Contact contact = getContact(id);
         String photoUrl = photoFunction.apply(id,file);
         contact.setPhotoUrl(photoUrl);
@@ -54,7 +56,7 @@ public class ContactService {
     private final BiFunction<String,MultipartFile,String> photoFunction= (id,image) -> {
          String filename =id+fileExtension.apply(image.getOriginalFilename());
         try {
-            Path fileStorageLocation = Paths.get("").toAbsolutePath().normalize();
+            Path fileStorageLocation = Paths.get(PHOTO_DIRECTORY).toAbsolutePath().normalize();
             if(!Files.exists(fileStorageLocation)){
                 Files.createDirectories(fileStorageLocation);
             }
