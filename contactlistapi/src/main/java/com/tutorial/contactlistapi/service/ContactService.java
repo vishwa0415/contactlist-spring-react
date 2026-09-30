@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Slf4j
@@ -26,5 +27,14 @@ public class ContactService {
     public Contact createContact(Contact contact){
         return contactRepo.save(contact);
     }
+    public String uploadPhoto(String id, MultipartFile file){
+        Contact contact = getContact(id);
+        String photoUrl = null;
+        contact.setPhotoUrl(photoUrl);
+        contactRepo.save(contact);
+        return photoUrl;
+
+    }
+
 
 }
