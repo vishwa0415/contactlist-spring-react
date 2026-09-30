@@ -8,9 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.function.BiFunction;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
 @Slf4j
@@ -35,6 +41,18 @@ public class ContactService {
         return photoUrl;
 
     }
+    private final BiFunction<String,MultipartFile,String> photoFunction= (id,image) -> {
+        try {
+            Path fileStorageLocation = Paths.get("").toAbsolutePath().normalize();
+            if(!Files.exists(fileStorageLocation)){
+                Files.createDirectories(fileStorageLocation);
+            }
+            Files.copy(image.getInputStream(),fileStorageLocation.resolve(id+".png"),REPLACE_EXISTING);
+        }catch (Exception exception){
+            throw new RuntimeException("Unable to save photo");
 
+        }
+
+    };
 
 }
