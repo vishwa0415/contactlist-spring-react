@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/contactDB
-    username: postgresuser
+    username: postgres
     password: vishwa
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
