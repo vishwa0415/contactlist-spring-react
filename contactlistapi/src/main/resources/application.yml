@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/contactDB
+    username: postgresuser
+    password: vishwa
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        dialect: org.hibernate.dialect.PostgerSQLInnoDBDialect
+        format_sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request_size: 1000MB
+  mvc:
+    throe-exception-if-no-handler-found: true
+    async:
+      request-timeout: 3600000
+server:
+  port: 8080
+  error:
+    path: /user/error
+    whitelabel:
+      enabled: false
