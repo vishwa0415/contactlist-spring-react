@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,6 +36,7 @@ public class ContactService {
         return contactRepo.findById(id).orElseThrow(()->new RuntimeException("Contact not found"));
     }
     public Contact createContact(Contact contact){
+
         return contactRepo.save(contact);
     }
     public String uploadPhoto(String id, MultipartFile file){
@@ -70,5 +72,16 @@ public class ContactService {
         }
 
     };
+    public ResponseEntity<String> deleteContact(String id){
+        Optional<Contact> getting = contactRepo.findById(id);
+        if (getting.isPresent()) {
+            contactRepo.deleteById(id);
+            return ResponseEntity.ok("successfully deleted");
+        }else{
+            return ResponseEntity.notFound().build();
+            }
+
+        }
+
 
 }
