@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.tutorial.contactlistapi.constant.Constant.PHOTO_DIRECTORY;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
 @RequestMapping("/contacts")
@@ -40,7 +41,7 @@ public class ContactResource {
     public ResponseEntity<String> uploadPhoto(@RequestParam("id")String id, @RequestParam("file")MultipartFile file){
         return ResponseEntity.ok().body(contactService.uploadPhoto(id,file));
     }
-    @GetMapping(path="/image/{filename}")
+    @GetMapping(path="/image/{filename}",produces = IMAGE_PNG_VALUE)
     public byte[] getPhoto(@PathVariable("filename") String filename)throws IOException{
         return Files.readAllBytes(Paths.get(PHOTO_DIRECTORY + filename));
     }
