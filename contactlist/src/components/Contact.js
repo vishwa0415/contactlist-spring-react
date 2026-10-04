@@ -26,4 +26,4 @@ const Contact =({contact})=>{
        </Link>
     )
 }
-export default Contact;
+export default Contact; 
