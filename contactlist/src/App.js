@@ -9,8 +9,22 @@ import { useRef } from 'react';
 
 const App =()=>{
 const modalRef = useRef();
+const fileRef = useRef();
 const [data,setData] = useState({});
 const [currentPage,setCurrentPage] = useState(0);
+const[file, setFile] = useState(undefined);
+const [values,setValues] = useState({
+  name:'',
+  email:'',
+  title:'',
+  phone:'',
+  address:'',
+  status:'',
+});
+const onChange =(e)=>{
+  setValues({...values, [e.target.name] : e.target.value});
+  console.log(values);
+}
 const getAllContacts= async(page=0,size=10) =>{
   try{
     setCurrentPage(page);
@@ -21,7 +35,9 @@ const getAllContacts= async(page=0,size=10) =>{
     console.log(error);
   }
 }
-const toggleModal =(show)=>show? modalRef.current.showModal() : modalRef.current.close();
+const toggleModal =(show)=>{show? modalRef.current.showModal() : modalRef.current.close();
+  fileRef.current.value = null;
+}
 useEffect(()=>{
   getAllContacts();
 },[]);
@@ -55,7 +71,7 @@ useEffect(()=>{
                                 Name
 
                             </span>
-                            <input type="text" name="name" required />
+                            <input value={values.name} onChange={onChange} type="text" name="name" required />
 
                         </div>
                         <div className="input-box">
@@ -63,7 +79,7 @@ useEffect(()=>{
                                 Email
 
                             </span>
-                            <input type="text" name="email" required />
+                            <input value={values.email} onChange={onChange} type="text" name="email" required />
 
                         </div>
                         <div className="input-box">
@@ -71,7 +87,7 @@ useEffect(()=>{
                                 Title
 
                             </span>
-                            <input type="text" name="title" required />
+                            <input value={values.title} onChange={onChange} type="text" name="title" required />
 
                         </div>
                         <div className="input-box">
@@ -79,7 +95,7 @@ useEffect(()=>{
                                 Phone Number
 
                             </span>
-                            <input type="text" name="phone" required />
+                            <input value={values.phone} onChange={onChange} type="text" name="phone" required />
 
                         </div>
                         <div className="input-box">
@@ -87,7 +103,7 @@ useEffect(()=>{
                                 Address
 
                             </span>
-                            <input type="text" name="address" required />
+                            <input value={values.address} onChange={onChange} type="text" name="address" required />
 
                         </div>
                         <div className="input-box">
@@ -95,7 +111,7 @@ useEffect(()=>{
                                 Account Status
 
                             </span>
-                            <input type="text" name="status" required />
+                            <input value={values.status} onChange={onChange} type="text" name="status" required />
 
                         </div>
                         <div className="file-input">
@@ -103,7 +119,7 @@ useEffect(()=>{
                                 Profile Photo
 
                             </span>
-                            <input type="file" name="photo" required />
+                            <input onChange={(event)=>{setFile(event.target.files[0]); console.log(file)}} ref={fileRef} type="file" name="photo" required />
 
                         </div>
 
