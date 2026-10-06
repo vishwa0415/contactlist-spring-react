@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import ContactList from './components/ContactList';
 import { useRef } from 'react';
 import { saveContact, updatePhoto } from './api/ContactService';
+import ContactDetail from './components/ContactDetail';
 
 const App = () => {
   const modalRef = useRef();
@@ -24,7 +25,6 @@ const App = () => {
   });
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-    
   }
   const getAllContacts = async (page = 0, size = 10) => {
     try {
@@ -60,6 +60,8 @@ const App = () => {
       console.log(error);
     }
   }
+  const updateContact = async () => {};
+  const updatePhoto = async () => {};
   const toggleModal = (show) => {
     show ? modalRef.current.showModal() : modalRef.current.close();
 
@@ -78,6 +80,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/contacts" />} />
             <Route path="/contacts" element={<ContactList data={data} currentPage={currentPage} getAllContacts={getAllContacts} />} />
+            <Route path="/contacts/:id" element={<ContactDetail updateContact={updateContact} updatePhoto={updatePhoto} />} />
           </Routes>
         </div>
       </main>
