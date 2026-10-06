@@ -22,9 +22,9 @@ const App = () => {
     address: '',
     status: '',
   });
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-    console.log(values);
+  const onChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+    
   }
   const getAllContacts = async (page = 0, size = 10) => {
     try {
@@ -45,7 +45,6 @@ const App = () => {
       formData.append('id', data.id);
       const { data: photoUrl } = await updatePhoto(formData);
       toggleModal(false);
-      console.log(photoUrl);
       setFile(undefined);//remove the file from state after upload
       fileRef.current.value = null;//remove the file from input after upload
       setValues({
