@@ -15,7 +15,7 @@ const Contact =({contact})=>{
 
         </div>
         <div className="contact__body">
-            <p><i className="bi bi-envelope"></i> {contact.email.substring(0,20)}</p>
+            <p><i className="bi bi-envelope"></i> {contact.email.substring(0,25)}</p>
             <p><i className="bi bi-geo"></i>{contact.address}</p>
             <p><i className="bi bi-telephone"></i>{contact.phone}</p>
             <p>{contact.status === 'Active' ? <i className="bi bi-check-circle"></i> : 
