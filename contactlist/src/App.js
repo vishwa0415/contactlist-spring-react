@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import { saveContact, updatePhoto } from './api/ContactService';
 import ContactDetail from './components/ContactDetail';
 
+
 const App = () => {
   const modalRef = useRef();
   const fileRef = useRef();
@@ -31,7 +32,7 @@ const App = () => {
       setCurrentPage(page);
       const { data } = await getContacts(page, size);
       setData(data);
-      console.log(data);
+      
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +62,15 @@ const App = () => {
     }
   }
   const updateContact = async () => {};
-  const updatePhoto = async () => {};
+  const updateImage = async (formData) => {
+    try {
+      
+      const { data: photoUrl } = await updatePhoto(formData);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const toggleModal = (show) => {
     show ? modalRef.current.showModal() : modalRef.current.close();
 
@@ -80,7 +89,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/contacts" />} />
             <Route path="/contacts" element={<ContactList data={data} currentPage={currentPage} getAllContacts={getAllContacts} />} />
-            <Route path="/contacts/:id" element={<ContactDetail updateContact={updateContact} updatePhoto={updatePhoto} />} />
+            <Route path="/contacts/:id" element={<ContactDetail updateContact={updateContact} updateImage={updateImage} />} />
           </Routes>
         </div>
       </main>
