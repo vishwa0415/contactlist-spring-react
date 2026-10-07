@@ -27,7 +27,7 @@ const App = () => {
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
-  const getAllContacts = async (page = 0, size = 10) => {
+  const getAllContacts = async (page = 0, size = 3) => {
     try {
       setCurrentPage(page);
       const { data } = await getContacts(page, size);
@@ -61,7 +61,14 @@ const App = () => {
       console.log(error);
     }
   }
-  const updateContact = async () => {};
+  const updateContact = async (contact) => {
+try{
+  const {data} = await saveContact(contact);
+  console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const updateImage = async (formData) => {
     try {
       
