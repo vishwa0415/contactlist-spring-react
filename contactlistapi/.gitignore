@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Environment variables
+.env
+
+# Local configuration
+application-local.yml
+application-local.yaml
+application-local.properties
+
+# Temporary files
+*.tmp
+*.temp
