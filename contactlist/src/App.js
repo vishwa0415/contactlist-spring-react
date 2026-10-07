@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import { saveContact, updatePhoto } from './api/ContactService';
 import ContactDetail from './components/ContactDetail';
 
+
 const App = () => {
   const modalRef = useRef();
   const fileRef = useRef();
@@ -26,12 +27,12 @@ const App = () => {
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
-  const getAllContacts = async (page = 0, size = 10) => {
+  const getAllContacts = async (page = 0, size = 3) => {
     try {
       setCurrentPage(page);
       const { data } = await getContacts(page, size);
       setData(data);
-      console.log(data);
+      
     } catch (error) {
       console.log(error);
     }
@@ -60,8 +61,23 @@ const App = () => {
       console.log(error);
     }
   }
-  const updateContact = async () => {};
-  const updatePhoto = async () => {};
+  const updateContact = async (contact) => {
+try{
+  const {data} = await saveContact(contact);
+  console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateImage = async (formData) => {
+    try {
+      
+      const { data: photoUrl } = await updatePhoto(formData);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const toggleModal = (show) => {
     show ? modalRef.current.showModal() : modalRef.current.close();
 
@@ -80,7 +96,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/contacts" />} />
             <Route path="/contacts" element={<ContactList data={data} currentPage={currentPage} getAllContacts={getAllContacts} />} />
-            <Route path="/contacts/:id" element={<ContactDetail updateContact={updateContact} updatePhoto={updatePhoto} />} />
+            <Route path="/contacts/:id" element={<ContactDetail updateContact={updateContact} updateImage={updateImage} />} />
           </Routes>
         </div>
       </main>
