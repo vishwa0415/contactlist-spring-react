@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import { useState } from 'react';
 import { getContacts } from './api/ContactService';
@@ -8,7 +9,8 @@ import ContactList from './components/ContactList';
 import { useRef } from 'react';
 import { saveContact, updatePhoto } from './api/ContactService';
 import ContactDetail from './components/ContactDetail';
-
+import { toastError } from './api/ToastService';
+import {ToastContainer} from 'react-toastify';
 
 const App = () => {
   const modalRef = useRef();
@@ -35,6 +37,7 @@ const App = () => {
       
     } catch (error) {
       console.log(error);
+      toastError(error.message);
     }
   }
   const handleNewContact = async (event) => {
@@ -67,6 +70,7 @@ try{
   console.log(data);
     } catch (error) {
       console.log(error);
+       toastError(error.message); 
     }
   };
   const updateImage = async (formData) => {
@@ -76,6 +80,7 @@ try{
       
     } catch (error) {
       console.log(error);
+       toastError(error.message);
     }
   };
   const toggleModal = (show) => {
@@ -178,8 +183,8 @@ try{
           </form>
 
         </div>
-
       </dialog>
+       <ToastContainer />
     </>
   );
 }

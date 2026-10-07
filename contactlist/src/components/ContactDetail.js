@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getContact } from '../api/ContactService';
 import { useEffect, useRef } from 'react';
-import App from '../App';
+import { toastError, toastSuccess } from '../api/ToastService';
 const ContactDetail = ({updateContact, updateImage}) => {
   const inputRef = useRef();
   const [contact, setContact] = useState({
@@ -24,8 +24,10 @@ const ContactDetail = ({updateContact, updateImage}) => {
       const { data } = await getContact(id);
       setContact(data);
       console.log(data);
+     // toastSuccess('Contact fetched successfully');
     } catch (error) {
       console.log(error);
+      toastError(error.message);
     }
   }
 
@@ -41,9 +43,10 @@ const ContactDetail = ({updateContact, updateImage}) => {
       formData.append('id', id);
       await updateImage(formData);
       setContact((prev) => ({ ...prev, photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}` }));
-      
+      toastSuccess('Photo updated successfully');
     } catch (error) {
       console.log(error);
+      toastError(error.message);
     }
   };
    const onChange = (event) => {
@@ -54,6 +57,7 @@ const ContactDetail = ({updateContact, updateImage}) => {
    event.preventDefault();
     await updateContact(contact);
     fetchContact(id);
+    toastSuccess('Contact updated successfully');
   }
 
    useEffect(() => {
