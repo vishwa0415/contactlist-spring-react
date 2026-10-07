@@ -1,25 +1,46 @@
-# Java / Spring Boot
-backend/target/
-*.class
-
-# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-*.ipr
-
-# React / Node
+# =========================
+# Node / React
+# =========================
 frontend/node_modules/
 frontend/dist/
+frontend/build/
 
-# Environment variables
-.env
-.env.*
-!.env.example
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
 
+# =========================
+# Spring Boot / Java
+# =========================
+backend/target/
+backend/.idea/
+backend/*.iml
+
+# Spring local configuration
+backend/src/main/resources/application-local.yml
+backend/src/main/resources/application-local.yaml
+backend/src/main/resources/application-local.properties
+
+# Environment files
+backend/.env
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/
+*.iml
+
+# =========================
 # Logs
+# =========================
 *.log
 
+# =========================
 # OS
+# =========================
 .DS_Store
 Thumbs.db
